@@ -1,0 +1,24 @@
+﻿@model ProjectQ.Models.CityList 
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>City</th>
+        <th>Temperature</th>
+        <th></th>
+    </tr>
+
+        @foreach (var cityItem in Model.CityListItems)
+        {
+            <tr>
+                <td>@Html.Label(cityItem.city.name)</td>
+                <td>@cityItem.temperature.TempCelcius.ToString()</td>
+                <td>                    
+                </td>
+            </tr>
+        }
+    
+
+</table>

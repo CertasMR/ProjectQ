@@ -21,13 +21,14 @@ namespace ProjectQ.Controllers
             // create open weathermap query string
 
             // request city list in load into xml doc
+            CityList cityList;
 
             var serializer = new XmlSerializer(typeof(CityList));
-            using (var reader = XmlReader.Create("~\App_Data\forecast.xml"))
+            using (var reader = XmlReader.Create(@"C:\Repos\ProjectQ\ProjectQ\App_Data\forecast.xml"))
             {
-                CityList cityList = (CityList)serializer.Deserialize(reader);
-                List<CityListItem> Cities = cityList.CityListItems;
-                
+                cityList = (CityList)serializer.Deserialize(reader);
+                //List<CityListItem> Cities = cityList.CityListItems;
+
             }
 
             // find the higest temperature using xpath max query
@@ -44,7 +45,7 @@ namespace ProjectQ.Controllers
             //  update "get moving model"
             //  View (GetMoving)
 
-            return View();
+            return View(cityList);
         }
     }
 }
