@@ -14,22 +14,27 @@ namespace ProjectQ.Controllers
         // GET: Hottest
         public ActionResult Index()
         {
+            var UserLatitude = 0m;
+            var UserLontitude = 0m;
+
             // get current location
             // google maps api
             // if fail return View("Centre of the earth")
 
+            UserLatitude = 54.0m;
+            UserLontitude = -1.54m;
+
             // create open weathermap query string
 
-            // request city list in load into xml doc
-            CityList cityList;
+            var API_URL = "http://api.openweathermap.org/data/2.5/find?lat={0}&lon={1}&cnt=50&mode=xml&APIKEY=3bd67cdea0def5d878ff62921fdb5f9c";
+            API_URL = String.Format(API_URL, UserLatitude.ToString(), UserLontitude.ToString());
 
+            // get the forecasts and deserialise them in to the model
+
+            var LocalForecast = new XmlDocument();
+            LocalForecast.Load(API_URL);
             var serializer = new XmlSerializer(typeof(CityList));
-            using (var reader = XmlReader.Create(@"C:\Repos\ProjectQ\ProjectQ\App_Data\forecast.xml"))
-            {
-                cityList = (CityList)serializer.Deserialize(reader);
-                //List<CityListItem> Cities = cityList.CityListItems;
-
-            }
+            CityList cityList = (CityList)serializer.Deserialize(new XmlNodeReader(LocalForecast));
 
             // find the higest temperature using xpath max query
 
