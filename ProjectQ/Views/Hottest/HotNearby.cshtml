@@ -1,0 +1,60 @@
+﻿@model ProjectQ.Models.HotNearby
+
+<div>
+    <h4>HotNearby</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.YourTown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YourTown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YourTemp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YourTemp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotTown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotTown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotTemp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotTemp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinsToHottest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinsToHottest)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

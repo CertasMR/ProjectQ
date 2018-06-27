@@ -19,7 +19,7 @@ namespace ProjectQ.Models
         public string mode { get; set; }
         [XmlArray("list")]
         [XmlArrayItem("item")]
-        public List<CityListItem> CityListItems;
+        public List<CityListItem> CityListItems;       
     }
 
     public class CityListItem
