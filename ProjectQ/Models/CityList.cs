@@ -6,10 +6,11 @@ using System.Xml.Serialization;
 
 namespace ProjectQ.Models
 {
-    // These classes can be used to deserialize the XML from OpenWeatherMap API "Current Wather Data - Cities is Cycle (sic)"
+    // These classes can be used to deserialize the XML from OpenWeatherMap API "Current Wather Data - Cities is Cycle"
     // example call http://api.openweathermap.org/data/2.5/find?lat=54.0&lon=-1.54&cnt=50&mode=xml&APIKEY=3bd67cdea0def5d878ff62921fdb5f9c
     // API documentation at https://openweathermap.org/current
-    // XML tags have only be add for elements required for this project. Add the tags and set the datatype if more are required.
+    // XML tags have only been added for attributes required for this project. Add the tags and set the datatypes if more are required.
+    // These are flagged with TODO
 
     [XmlRoot("cities")]
     public class CityList
@@ -66,7 +67,7 @@ namespace ProjectQ.Models
     public class Temperature
     {
         [XmlAttribute("value")]
-        public decimal Value { get; set; }
+        public decimal TempKelvin { get; set; }
         [XmlAttribute("min")]
         public decimal Min { get; set; }
         [XmlAttribute("max")]
@@ -79,7 +80,7 @@ namespace ProjectQ.Models
         public decimal TempCelcius
         {
             get {
-                return (Value-273.15m);
+                return (TempKelvin-273.15m);
             }
         }
             

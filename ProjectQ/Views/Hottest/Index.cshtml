@@ -1,42 +1,5 @@
-﻿@model ProjectQ.Models.HotNearbyModel
+﻿@model ProjectQ.Models.HotNearbyList
 
 <p>
-    @Html.DisplayNameFor(model => model.YourTown)
+    Show City List for debugging etc.
 </p>
-<table class="table">
-    <tr>
-        <th>City</th>
-        <th>Temperature</th>
-        <th></th>
-    </tr>
-
-        @= Html.DisplayFor(model => model.YourTown);
-
-
-#line default
-        rline hidden
-
-#line 4 "c:\repos\ProjectQ\ProjectQ\Views\Hottest\View.cshtml"
-       __o = Html.DisplayNameFor(model => model.YourTemp);
-
-
-#line default
-#line hidden
-
-#line 5 "c:\repos\ProjectQ\ProjectQ\Views\Hottest\View.cshtml"
-        __o = Html.DisplayFor(model => model.YourTemp);{
-
-#line default
-#line hidden
-
-#line 6 "c:\repos\ProjectQ\ProjectQ\Views\Hottest\View.cshtml"
-            __o <tr>
-                <td>@Html.Label(cityItem.city.name)</td>
-                <td>@cityItem.temperature.TempCelcius.ToString()</td>
-                <td>                    
-                </td>
-            </tr>
-        }
-    
-
-</table>

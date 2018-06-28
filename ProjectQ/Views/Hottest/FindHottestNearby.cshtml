@@ -5,19 +5,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.YourTown)
+            @Html.DisplayNameFor(model => model.BaseTown)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.YourTown)
+            @Html.DisplayFor(model => model.BaseTown)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.YourTemp)
+            @Html.DisplayNameFor(model => model.BaseTemp)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.YourTemp)
+            @Html.DisplayFor(model => model.BaseTemp)
         </dd>
 
         <dt>
@@ -45,16 +45,30 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MinsToHottest)
+            @Html.DisplayNameFor(model => model.SecsToHottest)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MinsToHottest)
+            @Html.DisplayFor(model => model.SecsToHottest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeToHottestAsText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeToHottestAsText)
+        </dd>
+
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
         </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
