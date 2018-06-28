@@ -20,10 +20,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Nearby", "FindHottestNearby", "Hottest")</li>
+                    <li>@Html.ActionLink("Elsewhere", "FindHottestElsewhere", "Hottest")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("API", "API", "Home")</li>
+                    <li>@Html.ActionLink("API Test", "HotPlaceNear", "API")</li>
                 </ul>
             </div>
         </div>
@@ -32,7 +33,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Matt Rickard</p>
         </footer>
     </div>
 

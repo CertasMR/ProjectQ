@@ -26,5 +26,14 @@ namespace ProjectQ.Controllers
 
             return View();
         }
+
+        public ActionResult API()
+        {
+            ViewBag.Message = "Add this functionality to your website";
+
+            return View();
+        }
+
+
     }
 }

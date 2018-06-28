@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ProjectQ.Models
 {
-    public class HotNearby
+    public class HotPlace
     {
         // API keys, these should be configured for IP whitelist of obfucated for production
         const string DistanceApiKey = "AIzaSyCrtsC3FqsuYt3taz0e-7-_2OScNWXO1Hg";
@@ -25,6 +25,13 @@ namespace ProjectQ.Models
         public long SecsToHottest { get; set; }
         public string TimeToHottestAsText { get; set; }
         public string Status { get; set; }
+        public decimal DegreesHotter
+        {
+            get
+            {
+                return HotTemp  - BaseTemp;
+            }
+        }
 
         private decimal Lat = 0m;
         private decimal Lng = 0m;
@@ -33,7 +40,7 @@ namespace ProjectQ.Models
         /// <summary>
         /// Default constructor attempts to find users location using Google Geolocator API
         /// </summary>
-        public HotNearby()
+        public HotPlace()
         {
             using (var webClient = new WebClient())
             {
@@ -76,7 +83,7 @@ namespace ProjectQ.Models
         /// This be used for exploring from a know hot place or using a scattergun search stragegy.
         /// Also allows API access it we want to add it later.
         /// </remarks>
-        public HotNearby(decimal latitude, decimal longtitude)
+        public HotPlace(decimal latitude, decimal longtitude)
         {
             Lat = latitude;
             Lng = longtitude;

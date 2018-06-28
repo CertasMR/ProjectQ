@@ -25,7 +25,7 @@ namespace ProjectQ.Controllers
 
         public ActionResult FindHottestNearby()
         {
-            return View(new HotNearby());
+            return View(new HotPlace());
         }
     }
 }

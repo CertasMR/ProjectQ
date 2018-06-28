@@ -1,4 +1,4 @@
-﻿@model ProjectQ.Models.HotNearby
+﻿@model ProjectQ.Models.HotPlace
 
 <div>
     <h4>HotNearby</h4>
@@ -60,7 +60,13 @@
             @Html.DisplayFor(model => model.TimeToHottestAsText)
         </dd>
 
-        
+        <dt>
+            @Html.DisplayNameFor(model => model.DegreesHotter )
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DegreesHotter)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
