@@ -13,19 +13,37 @@ using Newtonsoft.Json.Linq;
 
 namespace ProjectQ.Controllers
 {
+    [RoutePrefix("Hottest")]
     public class HottestController : Controller
     {
       
         // GET: Hottest
         public ActionResult Index()
         {
-            return View();
-        
+            return View();       
         }
 
-        public ActionResult FindHottestNearby()
+
+        [Route("FindNear/{lat}/{lng}")]
+        public ActionResult FindNear(string lat, string lng)
         {
-            return View(new HotPlace());
+            lat = lat.Replace('_', '.');
+            lng = lng.Replace('_', '.');
+            return View(new HotPlace(Decimal.Parse(lat), Decimal.Parse(lng)));
         }
+
+
+        [Route("Explore/{lat}/{lng}")]
+        public ActionResult Explore(decimal lat, decimal lng)
+        {
+            return View(new HotPlace(lat, lng));
+        }
+
+        [Route("ScatterGunSearch/{lat}/{lng}")]
+        public ActionResult ScatterGunSearch(decimal lat, decimal lng)
+        {
+            return View(new HotPlace(lat, lng));
+        }
+
     }
 }

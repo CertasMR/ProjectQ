@@ -20,11 +20,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Nearby", "FindHottestNearby", "Hottest")</li>
-                    <li>@Html.ActionLink("Elsewhere", "FindHottestElsewhere", "Hottest")</li>
+                    <li>@Html.ActionLink("Nearby", "FindNear{ll}", "Hottest")</li>
+                    <li>@Html.ActionLink("Explore From Here", "Explore{ll}", "Hottest")</li>
+                    <li>@Html.ActionLink("Look Further", "ScatterGunSearch{ll}", "Hottest")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("API", "API", "Home")</li>
-                    <li>@Html.ActionLink("API Test", "HotPlaceNear", "API")</li>
+                    <li id="altest">
+                    </li>
                 </ul>
             </div>
         </div>
@@ -40,5 +42,28 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
+    <script>
+        // Get the users location based on their IP address.
+        // Append it to Action Links containing {LL}
+        // MVC doesn't like dots in the URL so use underscore and replace them later.     
+        $.getJSON('http://api.ipstack.com/check?access_key=ade6b937132f3d8c4b02365d7b21a00f&format=1')
+            .success(function (data) {
+                var lat = data.latitude.toString().replace('.', '_');
+                var lng = data.longitude.toString().replace('.', '_');
+                var links = document.getElementsByTagName('a');                
+                for (var i = 0; i < links.length; i++) {
+                    links[i].href = links[i].href.replace("%7Bll%7D", "/" + lat + "/" + lng);
+                }          
+            })
+            .error(function (error) {
+                // If you can't find the location, assume that the user is in Yeadon.
+                var links = document.getElementsByTagName('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].href = links[i].href.replace("%7Bll%7D", "/53_85/-1_69");
+                }          
+            });        
+    </script>
+
 </body>
 </html>

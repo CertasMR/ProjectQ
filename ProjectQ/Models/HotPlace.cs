@@ -13,8 +13,7 @@ namespace ProjectQ.Models
     public class HotPlace
     {
         // API keys, these should be configured for IP whitelist of obfucated for production
-        const string DistanceApiKey = "AIzaSyCrtsC3FqsuYt3taz0e-7-_2OScNWXO1Hg";
-        const string LocatorApiKey = "AIzaSyAfqlBZdGetNxTer2aMJ-4eWpFDHLHfn0g";
+        const string DistanceApiKey = "AIzaSyCrtsC3FqsuYt3taz0e-7-_2OScNWXO1Hg";        
         const string WeatherApiKey = "3bd67cdea0def5d878ff62921fdb5f9c";
 
         public string BaseTown { get; set; }
@@ -35,47 +34,9 @@ namespace ProjectQ.Models
 
         private decimal Lat = 0m;
         private decimal Lng = 0m;
-
-
+       
         /// <summary>
-        /// Default constructor attempts to find users location using Google Geolocator API
-        /// </summary>
-        public HotPlace()
-        {
-            using (var webClient = new WebClient())
-            {
-                Status = "";
-                
-                var LocatorURL = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + LocatorApiKey;
-                var LocatorParams = "{considerIp: \"true\"}";
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                try
-                {
-                    var json = webClient.UploadString(LocatorURL, LocatorParams);
-                    var location = JObject.Parse(json);
-                    Lat = ((Decimal)(location.SelectToken("location.lat")));
-                    Lng = ((Decimal)(location.SelectToken("location.lng")));
-                }
-                catch (Exception e)
-                {
-                    // For simplicity this demo will assume that the geolocater works
-                    // if it doesn't, ignore the error....
-                    Status = e.Message;
-                }
-
-                if (Lat == 0m && Lng == 0m)
-                {
-                    if (Status == null) Status = "Couldn't find location";
-                    // ...and chaet with Yeadon lat/lng just to keep things going
-                    Lat = 53.85m;
-                    Lng = -1.69m;
-                }
-            }
-            GetHottestNearby();
-        }
-
-        /// <summary>
-        /// Constructor for when you aleady know the co-ordinates
+        /// Find the hottest, closest place out of the 50 nearest the the co-ordinates
         /// </summary>
         /// <param name="latitude"></param>
         /// <param name="longtitude"></param>

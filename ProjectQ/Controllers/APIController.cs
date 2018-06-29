@@ -8,7 +8,6 @@ using ProjectQ.Models;
 
 namespace ProjectQ.Controllers
 {
-
     [RoutePrefix("API")]
     public class APIController : ApiController
     {
@@ -17,13 +16,6 @@ namespace ProjectQ.Controllers
         public HotPlace HotPlaceNear(decimal lat, decimal lng)
         {
             return new HotPlace(lat, lng);
-        }
-
-        [HttpGet]
-        [Route("HotPlaceNearHere")]
-        public HotPlace HotPlaceNearHere()
-        {
-            return new HotPlace();
-        }
+        }      
     }
 }
