@@ -1,0 +1,95 @@
+﻿@model ProjectQ.Models.HotPlaceExplorer
+
+<div>
+    <h4>HotPlaceExplorer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BasePlace.BaseTown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasePlace.BaseTown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BasePlace.BaseTemp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasePlace.BaseTemp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HottestPlace.HotTown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HottestPlace.HotTown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HottestPlace.HotTemp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HottestPlace.HotTemp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RouteToHottest.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RouteToHottest.Distance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RouteToHottest.SecondsTravel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RouteToHottest.SecondsTravel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RouteToHottest.TimeAsText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RouteToHottest.TimeAsText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DegreesHotter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DegreesHotter)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BasePlace.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasePlace.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Steps)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Steps)
+        </dd>
+    </dl>
+
+    <b>Route of Exploration</b>
+    <table>
+        @foreach(var town in Model.PassingThrough)
+        {
+            <tr><td>@town</td></tr>
+        }
+    </table>
+</div>

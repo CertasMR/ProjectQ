@@ -24,8 +24,8 @@ namespace ProjectQ.Controllers
         }
 
 
-        [Route("FindNear/{lat}/{lng}")]
-        public ActionResult FindNear(string lat, string lng)
+        [Route("Nearby/{lat}/{lng}")]
+        public ActionResult Nearby(string lat, string lng)
         {
             lat = lat.Replace('_', '.');
             lng = lng.Replace('_', '.');
@@ -34,15 +34,19 @@ namespace ProjectQ.Controllers
 
 
         [Route("Explore/{lat}/{lng}")]
-        public ActionResult Explore(decimal lat, decimal lng)
+        public ActionResult Explore(string lat, string lng)
         {
-            return View(new HotPlace(lat, lng));
+            lat = lat.Replace('_', '.');
+            lng = lng.Replace('_', '.');
+            return View(new HotPlaceExplorer(Decimal.Parse(lat), Decimal.Parse(lng)));
         }
 
         [Route("ScatterGunSearch/{lat}/{lng}")]
-        public ActionResult ScatterGunSearch(decimal lat, decimal lng)
+        public ActionResult ScatterGunSearch(string lat, string lng)
         {
-            return View(new HotPlace(lat, lng));
+            lat = lat.Replace('_', '.');
+            lng = lng.Replace('_', '.');
+            return View(new HotPlaceScatter(Decimal.Parse(lat), Decimal.Parse(lng)));
         }
 
     }

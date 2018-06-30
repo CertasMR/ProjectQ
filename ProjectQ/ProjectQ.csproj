@@ -204,8 +204,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Hottest\Index.cshtml" />
-    <Content Include="Views\Hottest\FindNear.cshtml" />
+    <Content Include="Views\Hottest\Nearby.cshtml" />
     <Content Include="Views\Home\API.cshtml" />
+    <Content Include="Views\Hottest\Explore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
