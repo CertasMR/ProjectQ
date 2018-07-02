@@ -202,7 +202,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Hottest\Index.cshtml" />
     <Content Include="Views\Hottest\Nearby.cshtml" />
     <Content Include="Views\Home\API.cshtml" />
     <Content Include="Views\Hottest\Explore.cshtml" />

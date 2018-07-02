@@ -83,9 +83,6 @@ namespace ProjectQ.Models
                 return (TempKelvin-273.15m);
             }
         }
-            
-
-
     }
 
     public class Humidity

@@ -201,7 +201,18 @@ namespace ProjectQ.Models
     {
         public HotPlaceScatter(decimal latitude, decimal longtitude)
         {
+            // for 1 to N
+            //   while point is not valid
+            //      generate a point UK lat/lng range       (49.3, -10.7  to   58.9,2.1)
+            //      get town name                           (google maps geocode?)
+            //      if town is in UK then valid             
 
+            // For each place
+            //   get circle forcast     (HotPlace)
+            //   get max temp
+
+            // with max temp town (Explore) from there 
+            
         }
     }
 }

@@ -12,10 +12,22 @@ namespace ProjectQ.Controllers
     public class APIController : ApiController
     {
         [HttpGet]
-        [Route("HotPlaceNear/{lat}/{lng}")]
-        public HotPlace HotPlaceNear(decimal lat, decimal lng)
+        [Route("Nearby/{lat}/{lng}")]
+        public HotPlace Nearby(string lat, string lng)
         {
-            return new HotPlace(lat, lng);
-        }      
+            lat = lat.Replace('_', '.');
+            lng = lng.Replace('_', '.');
+            return new HotPlace(Decimal.Parse(lat), Decimal.Parse(lng));
+        }
+
+        [HttpGet]
+        [Route("Explore/{lat}/{lng}")]
+        public HotPlaceExplorer Explore(string lat, string lng)
+        {
+            lat = lat.Replace('_', '.');
+            lng = lng.Replace('_', '.');
+            return new HotPlaceExplorer(Decimal.Parse(lat), Decimal.Parse(lng));
+        }
+
     }
 }
