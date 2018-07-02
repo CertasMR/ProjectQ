@@ -13,7 +13,7 @@
     {
         <span>We've chased the sun and the hottest place we've found is <span class="badge badge-warning">@Model.HottestPlace.HotTown </span> which is a toasty <span class="badge badge-warning">@(Model.HottestPlace.HotTemp)ºC</span> </span>
         <br /><br />
-        <span>If you hopped in the car now you could be <span class="badge badge-warning">@(Model.HottestPlace.HotTemp - Model.BasePlace.BaseTemp)ºC</span> hotter in <span class="badge badge-warning">@Model.RouteToHottest.TimeAsText </span> </span>
+        <span>If you hopped in the car now you could be <span class="badge badge-warning">@(Model.DegreesHotter)ºC</span> hotter in <span class="badge badge-warning">@Model.RouteToHottest.TimeAsText </span> </span>
         <br /><br />
         <span>If you don't want to get any colder along the way you can retrace our steps and go via these lovely places:</span>
         <br /><br /><table class="table">

@@ -10,12 +10,18 @@ using Newtonsoft.Json.Linq;
 
 namespace ProjectQ.Models
 {
-
+    /// <summary>
+    /// Gets route between two points using goole maps API when instanciated
+    /// </summary>
     public class Route
     {
+        // TODO - API key should be configured for IP whitelist or obfucated for production
         const string DistanceApiKey = "AIzaSyCrtsC3FqsuYt3taz0e-7-_2OScNWXO1Hg";
         const string DirectionsUrl = @"https://maps.googleapis.com/maps/api/directions/json?origin={0},{1}&destination={2},{3}&key={4}";
 
+        /// <summary>
+        /// Distanec in Miles
+        /// </summary>
         public decimal Distance { get; set; }
         public long SecondsTravel { get; set; }
         public string TimeAsText { get; set; }
@@ -24,9 +30,8 @@ namespace ProjectQ.Models
         public Route()
         {
             Status = "";
-            SecondsTravel = long.MaxValue;
+            SecondsTravel = long.MaxValue;  // we're usually looking for the quickest route so make blank routes the longest
         }
-
 
         public Route(decimal fromLat, decimal fromLng, decimal toLat, decimal toLng)
         {
@@ -49,10 +54,12 @@ namespace ProjectQ.Models
         }
     }
 
+    /// <summary>
+    /// Finds the hottest place close to a point and requests the driving time to that location.
+    /// </summary>
     public class HotPlace
     {
-        // API keys, these should be configured for IP whitelist of obfucated for production
-
+        // TODO - API key should be configured for IP whitelist or obfucated for production
         public const string WeatherApiKey = "3bd67cdea0def5d878ff62921fdb5f9c";
 
         public string BaseTown { get; set; }
@@ -77,17 +84,11 @@ namespace ProjectQ.Models
             }
         }
 
-
-
         /// <summary>
         /// Find the hottest, closest place out of the 50 nearest the the co-ordinates
         /// </summary>
         /// <param name="latitude"></param>
-        /// <param name="longtitude"></param>
-        /// <remarks>
-        /// This be used for exploring from a know hot place or using a scattergun search stragegy.
-        /// Also allows API access it we want to add it later.
-        /// </remarks>
+        /// <param name="longtitude"></param>      
         public HotPlace(decimal latitude, decimal longtitude)
         {
             BaseLat = latitude;
@@ -105,7 +106,7 @@ namespace ProjectQ.Models
             var ForecastUrl = "http://api.openweathermap.org/data/2.5/find?lat={0}&lon={1}&cnt=50&mode=xml&APIKEY={2}";
             ForecastUrl = String.Format(ForecastUrl, BaseLat, BaseLng, WeatherApiKey);
 
-            // get the forecasts and deserialise them in to the model
+            // get the forecasts and deserialise them
             // (yes, you could do also this with XmlDocuments.SelectNodes instead of deserializing)
             var LocalForecast = new XmlDocument();
             try
@@ -123,7 +124,6 @@ namespace ProjectQ.Models
                                 select city;
 
                 // Next let's find out which town in closest. The results are in distance order as the crow flies but I have a regular car, not a flying one :-(
-
                 var HottestClosestPlace = new CityListItem();
                 RouteToHottest = new Route();
 
@@ -212,7 +212,7 @@ namespace ProjectQ.Models
             //   get max temp
 
             // with max temp town (Explore) from there 
-            
+
         }
     }
 }
