@@ -1,8 +1,30 @@
 ﻿@model ProjectQ.Models.HotPlace
 
-<div>
-    <h4>Find Somewhere hotter near me.</h4>
+<div class="jumbotron">
+    <h4>Find Somewhere Hotter Near Me</h4>
+
     <hr />
+    It looks like you're in <span class="badge badge-warning">@Model.BaseTown</span> where it's <span class="badge badge-warning">@Model.BaseTemp.ToString()ºC</span>
+    <br /><br />
+    @if (Model.BaseTemp == Model.HotTemp)
+    {
+        <span> There nowhere hotter nearby, maybe put on a sweater.</span>
+    }
+    else
+    {
+        <span>The hottest place nearby is <span class="badge badge-warning">@Model.HotTown </span> which is a toasty <span class="badge badge-warning">@(Model.HotTemp)ºC</span> </span>
+        <br /><br />
+        <span>If you hopped in the car now you could be  <span class="badge badge-warning">@(Model.HotTemp - Model.BaseTemp)ºC</span> hotter in just <span class="badge badge-warning">@Model.RouteToHottest.TimeAsText </span> </span>
+    }
+
+
+</div>
+
+@if (false)
+{
+
+
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.BaseTown)
@@ -61,7 +83,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DegreesHotter )
+            @Html.DisplayNameFor(model => model.DegreesHotter)
         </dt>
 
         <dd>
@@ -76,5 +98,7 @@
         </dd>
 
     </dl>
-</div>
+    <div class="footer-clear">&nbsp;</div>
+}
+
 

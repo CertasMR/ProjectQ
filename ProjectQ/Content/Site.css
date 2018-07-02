@@ -1,10 +1,32 @@
-﻿body {
-    padding-top: 50px;
+﻿body { 
+    /* add the background image and make it full page*/
     padding-bottom: 20px;
     background: url("../Content/sun.jpg") no-repeat center center fixed;
     background-size: cover;
-
 }
+
+/* Override the theme colours to make it more on brand*/
+a, a:hover {   
+    color: #f26418;
+}
+.div-black {
+    background-color: black;
+}
+
+    /*  Fix the data list which  keep wrapping dispite the dl-horizontal tag*/
+    dd, dt{
+    width:40%;
+    float:left;
+}
+dt, .footer-clear {
+    clear: both;
+}
+
+/* Space the menu options out a bit*/
+.navbar-nav > li {
+    margin-right: 20px;
+}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {

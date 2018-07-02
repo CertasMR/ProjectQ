@@ -3,68 +3,71 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Hot Right Now</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-   
+
 </head>
-<body >
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body>
+    <div class="navbar navbar-expand-lg navbar-dark div-black">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Where is it hottest right now?", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Nearby", "Nearby{ll}", "Hottest")</li>
-                    <li>@Html.ActionLink("Explore From Here", "Explore{ll}", "Hottest")</li>
-                    <li>@Html.ActionLink("Look Further", "ScatterGunSearch{ll}", "Hottest")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("API", "API", "Home")</li>
-                    <li id="altest">
+            <a class="navbar-brand" href="\">Hot Right Now</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation" style="">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse " id="navbarColor01" style="">
+                <ul class="nav navbar-nav ">
+                    <li class="nav-item-pad ">
+                        @Html.ActionLink("Nearby", "Nearby{ll}", "Hottest")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Explore From Here", "Explore{ll}", "Hottest")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Look Further", "ScatterGunSearch{ll}", "Hottest")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("API", "API", "Home")
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Matt Rickard</p>
-        </footer>
-    </div>
+        </div>
+    <br />
+        <div class="container body-content footer-clear">
+            @RenderBody()
+           
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Matt Rickard</p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    
-    <script>
-        // Get the users location based on their IP address.
-        // Append it to Action Links containing {LL}
-        // MVC doesn't like dots in the URL so use underscore and replace them later.     
-        $.getJSON('http://api.ipstack.com/check?access_key=ade6b937132f3d8c4b02365d7b21a00f&format=1')
-            .success(function (data) {
-                var lat = data.latitude.toString().replace('.', '_');
-                var lng = data.longitude.toString().replace('.', '_');
-                var links = document.getElementsByTagName('a');                
-                for (var i = 0; i < links.length; i++) {
-                    links[i].href = links[i].href.replace("%7Bll%7D", "/" + lat + "/" + lng);
-                }          
-            })
-            .error(function (error) {
-                // If you can't find the location, assume that the user is in Yeadon.
-                var links = document.getElementsByTagName('a');
-                for (var i = 0; i < links.length; i++) {
-                    links[i].href = links[i].href.replace("%7Bll%7D", "/53_85/-1_69");
-                }          
-            });        
-    </script>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+        <script>
+            // Get the users location based on their IP address.
+            // Append it to Action Links containing {LL}
+            // MVC doesn't like dots in the URL so use underscore and replace them later.
+            $.getJSON('http://api.ipstack.com/check?access_key=ade6b937132f3d8c4b02365d7b21a00f&format=1')
+                .success(function (data) {
+                    var lat = data.latitude.toString().replace('.', '_');
+                    var lng = data.longitude.toString().replace('.', '_');
+                    var links = document.getElementsByTagName('a');
+                    for (var i = 0; i < links.length; i++) {
+                        links[i].href = links[i].href.replace("%7Bll%7D", "/" + lat + "/" + lng);
+                    }
+                })
+                .error(function (error) {
+                    // If you can't find the location, assume that the user is in Yeadon.
+                    var links = document.getElementsByTagName('a');
+                    for (var i = 0; i < links.length; i++) {
+                        links[i].href = links[i].href.replace("%7Bll%7D", "/53_85/-1_69");
+                    }
+                });
+        </script>
 
 </body>
 </html>

@@ -3,29 +3,35 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Find Somewhere that's hotter than where you are.</h1>
+    <br />
+    <hr class="my-4">
+ 
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Just Nearby</h2>
+            <p>
+                Want to be a little warmer but don't want to go too far. Try searching @Html.ActionLink("Nearby", "Nearby{ll}", "Hottest")
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Follow the Sun</h2>
+            <p>
+                Got some time to kill? Head to the nearest, warmest place then do the same again and again until you can't find anywhere warmer. @Html.ActionLink("Explore From Here", "Explore{ll}", "Hottest")
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>All over the Place</h2>
+            <p>
+                Peak at lots of places around the country then start exploring from the hottest one. @Html.ActionLink("Look Further", "ScatterGunSearch{ll}", "Hottest")</li>
+            </p>
+        </div>
+    </div>
+   
+    <hr class="my-4">
+    <br />
+    <p class="lead">This is a demo app using the current weather API from </p>
+    <p><a href="https://openweathermap.org" class="btn btn-warning btn-lg">OpenWeatherMap</a></p>
+
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
