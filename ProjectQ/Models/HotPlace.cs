@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json.Linq;
 
+
 namespace ProjectQ.Models
 {
     /// <summary>
@@ -201,18 +202,69 @@ namespace ProjectQ.Models
     {
         public HotPlaceScatter(decimal latitude, decimal longtitude)
         {
-            // for 1 to N
-            //   while point is not valid
-            //      generate a point UK lat/lng range       (49.3, -10.7  to   58.9,2.1)
-            //      get town name                           (google maps geocode?)
-            //      if town is in UK then valid             
+            var BasePlace = new HotPlace(latitude, latitude);
 
-            // For each place
-            //   get circle forcast     (HotPlace)
-            //   get max temp
+            const string GeocodeApiKey = "AIzaSyCrtsC3FqsuYt3taz0e-7-_2OScNWXO1Hg";
+            var GeocodeURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}";
+            var rnd = new Random();
 
-            // with max temp town (Explore) from there 
+            // box size for UK mainland
+            var minLat = 49.3m;
+            var maxLat = 58.9m;
+            var minLng = -10.7m;
+            var maxLng = 2.1m;
+
+            var PlacesToLook = 10;
+            decimal[,] Coords= new decimal[10,2];
+
+            for (int placeCount = 0; placeCount < PlacesToLook; placeCount++)
+            {
+                var PlaceValid = false;
+                while (!PlaceValid)
+                {
+                    // get a random location in the box
+                    decimal lat = minLat + ((decimal)(rnd.NextDouble()) * (maxLat - minLat));
+                    decimal lng = minLng + ((decimal)(rnd.NextDouble()) * (maxLng - minLng));
+
+                    using (var webClient = new WebClient())
+                    {
+                        // check if the value is found in the uk
+                        var json = webClient.DownloadString(String.Format(GeocodeURL, lat, lng, GeocodeApiKey));
+                        var location = JObject.Parse(json);
+                        if ((string)location.SelectToken("results.address_components[6].shortname") == "UK")
+                        {                          
+                            PlaceValid = true;
+                            Coords[placeCount, 0] = lat;
+                            Coords[placeCount, 1] = lng;
+                        }
+                    }
+                }
+            }
+
+            var Explorers = new List<HotPlaceExplorer>();
+
+            for (var i = 0; i < PlacesToLook; i++)
+            {
+                Explorers.Add(new HotPlaceExplorer(Coords[i,0], Coords[i,1]));
+            }
+
+            var MaxTemp = -100m;
+            HotPlaceExplorer LaraCroft;  //sorry
+            foreach (var explorer in Explorers)
+            {
+                if 
+            }
 
         }
+
+
+
+        // For each place
+        //   get circle forcast     (HotPlace)
+        //   get max temp
+
+        // with max temp town (Explore) from there 
+
     }
+}
 }
