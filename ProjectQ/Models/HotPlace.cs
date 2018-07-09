@@ -7,10 +7,47 @@ using System.Net;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json.Linq;
-
+using System.Threading;
 
 namespace ProjectQ.Models
 {
+
+    public static class APICounter
+    {
+        private const int MaxCallsPerMin = 60;
+        public static int CallCount { get; set; }
+        public static DateTime LastReset { get; set; }
+
+        static APICounter()
+        {
+            CallCount = 0;
+            LastReset = DateTime.Now;
+        }
+
+        /// <summary>
+        /// Returns true if call can be made and increments counter. False is call quota has been used up.
+        /// </summary>
+        /// <returns></returns>
+        public static bool TryCall()
+        {
+            if (LastReset.AddMinutes(1) > DateTime.Now)
+            {
+                LastReset = DateTime.Now;
+                CallCount = 1;
+                return true;
+            }
+            else if (CallCount >= MaxCallsPerMin)
+            {
+                return false;
+            }
+            else
+            {
+                CallCount++;
+                return true;
+            }
+        }
+    }
+
     /// <summary>
     /// Gets route between two points using goole maps API when instanciated
     /// </summary>
@@ -112,6 +149,12 @@ namespace ProjectQ.Models
             var LocalForecast = new XmlDocument();
             try
             {
+                while (!APICounter.TryCall())
+                {
+                    // Wait until the quota resets
+                    Thread.Sleep(1000);
+                }
+
                 LocalForecast.Load(ForecastUrl);
                 var serializer = new XmlSerializer(typeof(CityList));
                 CityList cityList = (CityList)serializer.Deserialize(new XmlNodeReader(LocalForecast));
@@ -154,18 +197,15 @@ namespace ProjectQ.Models
         }
     }
 
-    public class HotPlaceExplorer
+    public abstract class _HotPlaceSearcher
     {
-        // Explore a bit further
-        // Find the hottest place nearby, then find the hottest place neat that.
-        // Repeat up to max steps
 
-        const int MaxSteps = 30;
+        public int MaxSteps { get; set; }
         public int Steps { get; set; }
 
         public HotPlace BasePlace { get; set; }
         public HotPlace HottestPlace { get; set; }
-        public List<string> PassingThrough { get; set; }
+        public List<string> SearchList { get; set; }
         public Route RouteToHottest { get; set; }
         public decimal DegreesHotter
         {
@@ -174,10 +214,21 @@ namespace ProjectQ.Models
                 return HottestPlace.HotTemp - BasePlace.BaseTemp;
             }
         }
+    }
+
+
+    public class HotPlaceExplorer : _HotPlaceSearcher
+    {
+        // Explore a bit further
+        // Find the hottest place nearby, then find the hottest place neat that.
+        // Repeat up to max steps
+
+
 
         public HotPlaceExplorer(decimal latitude, decimal longtitude)
         {
-            PassingThrough = new List<string>();
+            MaxSteps = 30;
+            SearchList = new List<string>();
             Steps = 0;
 
             BasePlace = new HotPlace(latitude, longtitude);
@@ -189,7 +240,7 @@ namespace ProjectQ.Models
             while ((HottestPlace.BaseTown != HottestPlace.HotTown) && (Steps < MaxSteps))
             {
                 HottestPlace = new HotPlace(HottestPlace.HotLat, HottestPlace.HotLng);
-                PassingThrough.Add(HottestPlace.BaseTown);
+                SearchList.Add(HottestPlace.BaseTown);
                 Steps++;
             }
 
@@ -198,10 +249,13 @@ namespace ProjectQ.Models
         }
     }
 
-    public class HotPlaceScatter
+    public class HotPlaceScatter : _HotPlaceSearcher
     {
+
         public HotPlaceScatter(decimal latitude, decimal longtitude)
         {
+            MaxSteps = 10;
+
             var BasePlace = new HotPlace(latitude, latitude);
 
             const string GeocodeApiKey = "AIzaSyCrtsC3FqsuYt3taz0e-7-_2OScNWXO1Hg";
@@ -215,7 +269,7 @@ namespace ProjectQ.Models
             var maxLng = 2.1m;
 
             var PlacesToLook = 10;
-            decimal[,] Coords= new decimal[10,2];
+            decimal[,] Coords = new decimal[10, 2];
 
             for (int placeCount = 0; placeCount < PlacesToLook; placeCount++)
             {
@@ -229,42 +283,67 @@ namespace ProjectQ.Models
                     using (var webClient = new WebClient())
                     {
                         // check if the value is found in the uk
+                        try
+                        {
+
+                        
                         var json = webClient.DownloadString(String.Format(GeocodeURL, lat, lng, GeocodeApiKey));
                         var location = JObject.Parse(json);
-                        if ((string)location.SelectToken("results.address_components[6].shortname") == "UK")
-                        {                          
+
+                        var AddressComponents = from l in location["results"]["address_components"]["short_name"]
+                                                where l.ToString() == "UK"
+                                                select l;
+
+                        //if ((string)location.SelectToken("results[0].address_components[4].short_name") == "GB")
+                        if (AddressComponents.Count() > 0)
+                        {
                             PlaceValid = true;
                             Coords[placeCount, 0] = lat;
                             Coords[placeCount, 1] = lng;
+                        }
+                        }
+                        catch
+                        {
+                            // Couldn't geocode so ignore
                         }
                     }
                 }
             }
 
+            // explore from each of the random locations
             var Explorers = new List<HotPlaceExplorer>();
-
             for (var i = 0; i < PlacesToLook; i++)
             {
-                Explorers.Add(new HotPlaceExplorer(Coords[i,0], Coords[i,1]));
+                Explorers.Add(new HotPlaceExplorer(Coords[i, 0], Coords[i, 1]));
             }
 
-            var MaxTemp = -100m;
-            HotPlaceExplorer LaraCroft;  //sorry
-            foreach (var explorer in Explorers)
+            // find the hottest
+            var MaxTemp = Explorers.Max(p => p.HottestPlace.HotTemp);
+
+            // Check if here is hottest
+            if (MaxTemp == BasePlace.BaseTemp)
             {
-                if 
+                HottestPlace = BasePlace;
+                return;
             }
 
+            // Get all locations with hottest temp
+            var HotPlaces = from e in Explorers
+                            where (e.HottestPlace.HotTemp == MaxTemp)
+                            select e.HottestPlace;
+
+            // check which is closest. (we only know how far they are from the random place at the moment)
+            var ShortestTime = int.MaxValue;
+            foreach (var place in Explorers)
+            {
+                var CheckRoute = new Route(BasePlace.BaseLat, BasePlace.BaseLng, place.HottestPlace.HotLat, place.HottestPlace.HotLng);
+                if (CheckRoute.SecondsTravel < ShortestTime)
+                {
+                    HottestPlace = place.HottestPlace;
+                    return;
+                }
+            }
         }
 
-
-
-        // For each place
-        //   get circle forcast     (HotPlace)
-        //   get max temp
-
-        // with max temp town (Explore) from there 
-
     }
-}
 }

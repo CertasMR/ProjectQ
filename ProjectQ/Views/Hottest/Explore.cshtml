@@ -17,7 +17,7 @@
         <br /><br />
         <span>If you don't want to get any colder along the way you can retrace our steps and go via these lovely places:</span>
         <br /><br /><table class="table">
-            @foreach (var town in Model.PassingThrough)
+            @foreach (var town in Model.SearchList)
             {
                 <tr class="table-warning"><td>@town</td></tr>
             }
@@ -112,7 +112,7 @@
 
     <b>Route of Exploration</b>
     <table>
-        @foreach (var town in Model.PassingThrough)
+        @foreach (var town in Model.SearchList)
         {
             <tr><td>@town</td></tr>
         }

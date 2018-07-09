@@ -1,12 +1,28 @@
 ﻿@model ProjectQ.Models.HotPlaceScatter
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="jumbotron">
-        <h4>A week is a long time in politics but no time at all in software</h4>
-        <hr />
-        Thanks for showing interest in the frightfully complicated scattergun search. It's still in development but will appear here soon.
-    </div>
+   
+<div class="jumbotron">
+    <h4>Follow the Sun</h4>
+    <hr />
+    It looks like you're in <span class="badge badge-warning">@Model.BasePlace.BaseTown</span> where it's <span class="badge badge-warning">@Model.BasePlace.BaseTemp.ToString()ºC</span>
+    <br /><br />
+    @if (Model.BasePlace.BaseTemp == Model.HottestPlace.HotTemp)
+    {
+        <span> That's probably the hottest place you can get without a passport.</span>
+    }
+    else
+    {
+        <span>We've looked all over and the hottest place we've found is <span class="badge badge-warning">@Model.HottestPlace.HotTown </span> which is a toasty <span class="badge badge-warning">@(Model.HottestPlace.HotTemp)ºC</span> </span>
+        <br /><br />
+        <span>If you hopped in the car now you could be <span class="badge badge-warning">@(Model.DegreesHotter)ºC</span> hotter in <span class="badge badge-warning">@Model.RouteToHottest.TimeAsText </span> </span>
+        <br /><br />
+        <span>We had checked out the temperature around these exotic places</span>
+        <br /><br /><table class="table">
+            @foreach (var town in Model.SearchList)
+            {
+                <tr class="table-warning"><td>@town</td></tr>
+            }
+        </table>
+    }
+</div>
 }
