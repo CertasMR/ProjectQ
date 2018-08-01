@@ -1,15 +1,6 @@
 ﻿using ProjectQ.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ProjectQ.Controllers
 {
@@ -29,7 +20,7 @@ namespace ProjectQ.Controllers
         {
             lat = lat.Replace('_', '.');
             lng = lng.Replace('_', '.');
-            return View(new HotPlace(Decimal.Parse(lat), Decimal.Parse(lng)));
+            return View(new HotPlace(Decimal.Parse(lat), decimal.Parse(lng)));
         }
 
 
@@ -38,7 +29,7 @@ namespace ProjectQ.Controllers
         {
             lat = lat.Replace('_', '.');
             lng = lng.Replace('_', '.');
-            return View(new HotPlaceExplorer(Decimal.Parse(lat), Decimal.Parse(lng)));
+            return View(new HotPlaceExplorer(decimal.Parse(lat), decimal.Parse(lng)));
         }
 
         [Route("ScatterGunSearch/{lat}/{lng}")]
@@ -46,7 +37,7 @@ namespace ProjectQ.Controllers
         {
             lat = lat.Replace('_', '.');
             lng = lng.Replace('_', '.');
-            return View(new HotPlaceScatter(Decimal.Parse(lat), Decimal.Parse(lng)));
+            return View(new HotPlaceScatter(decimal.Parse(lat), decimal.Parse(lng)));
         }
 
     }
