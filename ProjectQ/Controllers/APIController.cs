@@ -29,5 +29,13 @@ namespace ProjectQ.Controllers
             return new HotPlaceExplorer(Decimal.Parse(lat), Decimal.Parse(lng));
         }
 
+        [HttpGet]
+        [Route("WeatherOrNot")]
+        public WeatherOrNot WeatherOrNot()
+        {
+            return new WeatherOrNot();
+        }
+
+
     }
 }
