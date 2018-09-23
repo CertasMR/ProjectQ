@@ -7,11 +7,11 @@ namespace ProjectQ.Controllers
     [RoutePrefix("Hottest")]
     public class HottestController : Controller
     {
-      
+
         // GET: Hottest
         public ActionResult Index()
         {
-            return View();       
+            return View();
         }
 
 
@@ -27,18 +27,36 @@ namespace ProjectQ.Controllers
         [Route("Explore/{lat}/{lng}")]
         public ActionResult Explore(string lat, string lng)
         {
-            lat = lat.Replace('_', '.');
-            lng = lng.Replace('_', '.');
-            return View(new HotPlaceExplorer(decimal.Parse(lat), decimal.Parse(lng)));
+            //lat = lat.Replace('_', '.');
+            //lng = lng.Replace('_', '.');
+            return View(new Coordinates { Lat = lat, Lng=lng});
         }
 
-        [Route("ScatterGunSearch/{lat}/{lng}")]
-        public ActionResult ScatterGunSearch(string lat, string lng)
+        [Route("ExploreResults/{lat}/{lng}")]
+        public ActionResult ExploreResults(string lat, string lng)
         {
             lat = lat.Replace('_', '.');
             lng = lng.Replace('_', '.');
-            return View(new HotPlaceScatter(decimal.Parse(lat), decimal.Parse(lng)));
+            return PartialView(new HotPlaceExplorer(decimal.Parse(lat), decimal.Parse(lng)));
         }
+
+        
+        [Route("ScatterGunSearch/{lat}/{lng}")]
+        public ActionResult ScatterGunSearch(string lat, string lng)
+        {
+            //lat = lat.Replace('_', '.');
+            //lng = lng.Replace('_', '.');
+            return View(new Coordinates { Lat = lat, Lng = lng });
+        }
+
+        [Route("ScatterGunSearchResults/{lat}/{lng}")]
+        public ActionResult ScatterGunSearchResults(string lat, string lng)
+        {
+            lat = lat.Replace('_', '.');
+            lng = lng.Replace('_', '.');
+            return PartialView(new HotPlaceScatter(decimal.Parse(lat), decimal.Parse(lng)));
+        }
+
 
     }
 }

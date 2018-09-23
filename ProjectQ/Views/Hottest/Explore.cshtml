@@ -1,121 +1,30 @@
-﻿@model ProjectQ.Models.HotPlaceExplorer
+﻿@using ProjectQ.Models
+@model ProjectQ.Models.Coordinates
 
 <div class="jumbotron">
-    <h4>Follow the Sun</h4>
+    <h4>Follow the Sun</h4><hr />
+    <div class="Results" style="width:100%; align-content: center;">
+    <h5>Hang on a mo...</h5>
+        <br /><image src="/content/loader.gif" alt="please wait"></image>
+        
+    </div>
     <hr />
-    It looks like you're in <span class="badge badge-warning">@Model.BasePlace.BaseTown</span> where it's <span class="badge badge-warning">@Model.BasePlace.BaseTemp.ToString()ºC</span>
-    <br /><br />
-    @if (Model.BasePlace.BaseTemp == Model.HottestPlace.HotTemp)
-    {
-        <span> There nowhere hotter nearby, maybe put on a sweater.</span>
-    }
-    else
-    {
-        <span>We've chased the sun and the hottest place we've found is <span class="badge badge-warning">@Model.HottestPlace.HotTown </span> which is a toasty <span class="badge badge-warning">@(Model.HottestPlace.HotTemp)ºC</span> </span>
-        <br /><br />
-        <span>If you hopped in the car now you could be <span class="badge badge-warning">@(Model.DegreesHotter)ºC</span> hotter in <span class="badge badge-warning">@Model.RouteToHottest.TimeAsText </span> </span>
-        <br /><br />
-        <span>If you don't want to get any colder along the way you can retrace our steps and go via these lovely places:</span>
-        <br /><br /><table class="table">
-            @foreach (var town in Model.SearchList)
-            {
-                <tr class="table-warning"><td>@town</td></tr>
-            }
-        </table>
-    }
 </div>
 
-@if (false)
-{
+@section scripts{
+    <script>
+        $(document).ready(function() {
 
-    <dl class="dl-horizontal">
+            var url = "/Hottest/ExploreResults/@Model.Lat/@Model.Lng";
+            $.ajax({
+                    url: url
+                })
+                .done(function(result) {
+                    // replace content
+                    $("div.Results").html(result);
+                });
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BasePlace.BaseTown)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BasePlace.BaseTown)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BasePlace.BaseTemp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BasePlace.BaseTemp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HottestPlace.HotTown)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HottestPlace.HotTown)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HottestPlace.HotTemp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HottestPlace.HotTemp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RouteToHottest.Distance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RouteToHottest.Distance)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RouteToHottest.SecondsTravel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RouteToHottest.SecondsTravel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RouteToHottest.TimeAsText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RouteToHottest.TimeAsText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DegreesHotter)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DegreesHotter)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BasePlace.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BasePlace.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Steps)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Steps)
-        </dd>
-    </dl>
-
-    <b>Route of Exploration</b>
-    <table>
-        @foreach (var town in Model.SearchList)
-        {
-            <tr><td>@town</td></tr>
-        }
-    </table>
-    <div class="footer-clear">&nbsp;</div>
+        });
+     
+    </script>
 }
