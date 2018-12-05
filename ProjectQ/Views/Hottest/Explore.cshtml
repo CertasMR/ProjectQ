@@ -5,7 +5,7 @@
     <h4>Follow the Sun</h4><hr />
     <div class="Results" style="width:100%; align-content: center;">
     <h5>Hang on a mo...</h5>
-        <br /><image src="/content/loader.gif" alt="please wait"></image>
+        <br /><image src="~/content/Loader.gif" alt="please wait"></image>
         
     </div>
     <hr />
@@ -15,7 +15,7 @@
     <script>
         $(document).ready(function() {
 
-            var url = "/Hottest/ExploreResults/@Model.Lat/@Model.Lng";
+            var url = "/Hottest/ExploreResults/@Model.Lat/@Model.Lng/";
             $.ajax({
                     url: url
                 })

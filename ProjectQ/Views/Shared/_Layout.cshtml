@@ -30,45 +30,46 @@
                     </li>
                     <li class="nav-item">
                         @Html.ActionLink("API", "API", "Home")
-                    </li>                   
+                    </li>
                 </ul>
             </div>
         </div>
-        </div>
+    </div>
     <br />
-        <div class="container body-content footer-clear">
-            @RenderBody()
-           
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Matt Rickard</p>
-            </footer>
-        </div>
+    <div class="container body-content footer-clear">
+        @RenderBody()
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Matt Rickard</p>
+        </footer>
+    </div>
 
-        <script>
-            // Get the users location based on their IP address.
-            // Append it to Action Links containing {LL}
-            // MVC doesn't like dots in the URL so use underscore and replace them later.
-            $.getJSON('http://api.ipstack.com/check?access_key=ade6b937132f3d8c4b02365d7b21a00f&format=1')
-                .success(function (data) {
-                    var lat = data.latitude.toString().replace('.', '_');
-                    var lng = data.longitude.toString().replace('.', '_');
-                    var links = document.getElementsByTagName('a');
-                    for (var i = 0; i < links.length; i++) {
-                        links[i].href = links[i].href.replace("%7Bll%7D", "/" + lat + "/" + lng);
-                    }
-                })
-                .error(function (error) {
-                    // If you can't find the location, assume that the user is in Yeadon.
-                    var links = document.getElementsByTagName('a');
-                    for (var i = 0; i < links.length; i++) {
-                        links[i].href = links[i].href.replace("%7Bll%7D", "/53_85/-1_69");
-                    }
-                });
-        </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+    <script src="~/signalr/hubs"></script>
+    <script>
+        // Get the users location based on their IP address.
+        // Append it to Action Links containing {LL}
+        // MVC doesn't like dots in the URL so use underscore and replace them later.
+        $.getJSON('http://api.ipstack.com/check?access_key=ade6b937132f3d8c4b02365d7b21a00f&format=1')
+            .success(function (data) {
+                var lat = data.latitude.toString(); //.replace('.', '_');
+                var lng = data.longitude.toString(); //.replace('.', '_');
+                var links = document.getElementsByTagName('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].href = links[i].href.replace("%7Bll%7D", "/" + lat + "/" + lng + "/");
+                }
+            })
+            .error(function (error) {
+                // If you can't find the location, assume that the user is in Yeadon.
+                var links = document.getElementsByTagName('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].href = links[i].href.replace("%7Bll%7D", "/53.85/-1.69/");
+                }
+            });
+    </script>
 
 </body>
 </html>

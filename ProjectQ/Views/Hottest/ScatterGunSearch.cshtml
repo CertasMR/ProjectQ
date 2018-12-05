@@ -5,8 +5,11 @@
     <hr />
     <div class="Results" style="width:100%; align-content: center;">
         <h5>Hang on a mo, this could take a while...</h5>
-        <br /><image src="/content/loader.gif" alt="please wait"></image>
-
+        <br /><img src="~/content/Loader.gif" alt="please wait" />
+        <table class="table" id="places">
+          
+          
+        </table>
     </div>
     <hr />
 </div>
@@ -15,17 +18,34 @@
     <script>
         $(document).ready(function() {
 
-            var url = "/Hottest/ScatterGunSearchResults/@Model.Lat/@Model.Lng";
+            @*var url = "/Hottest/ScatterGunSearchResults/@Model.Lat/@Model.Lng/";
             $.ajax({
                     url: url
                 })
                 .done(function(result) {
                     // replace content
                     $("div.Results").html(result);
-                });
+                });*@
 
+            var sigHub = $.connection.sigHub;
+            //sigHub.server.scatterGub(@Model.Lat, @Model.Lng);
+
+            $.connection.hub.start().done(function () {
+                sigHub.server.scatterGun(@Model.Lat, @Model.Lng);
+                //sigHub.server.showPlace("Whoo Hoo!");
+            });
+
+            sigHub.client.showPlace = function(place) {
+                $("#places").append('<tr class="table-warning"><td>1' + place + '</td></tr>');
+            };
+
+            $.connection.sigHub.client.MessageReciever = function (place) {
+                $("#places").append('<tr class="table-warning"><td>2' + place + '</td></tr>');
+            }; 
+
+          
         });
-        
 
+      
     </script>
 }

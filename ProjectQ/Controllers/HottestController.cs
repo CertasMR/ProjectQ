@@ -9,13 +9,7 @@ namespace ProjectQ.Controllers
     {
 
         // GET: Hottest
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-
-        [Route("Nearby/{lat}/{lng}")]
+      [Route("Nearby/{lat}/{lng}")]
         public ActionResult Nearby(string lat, string lng)
         {
             lat = lat.Replace('_', '.');

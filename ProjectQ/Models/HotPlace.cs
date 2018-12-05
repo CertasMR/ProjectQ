@@ -131,7 +131,7 @@ namespace ProjectQ.Models
 
     public abstract class HotPlaceSearcher
     {
-
+        public SigHub Hub { get; set; } = new SigHub();
         public int MaxSteps { get; set; }
         public int Steps { get; set; }
 
@@ -198,6 +198,14 @@ namespace ProjectQ.Models
             const decimal maxLng = 2.1m;
 
             var searchCentreCoords = new decimal[10, 2];
+            try
+            {
+                Hub.ShowPlace("Finding places...");
+            }
+            catch (Exception e)
+            {
+                
+            }
 
             // find a random selection of places to look that fall in the UK boundary
             for (var placeCount = 0; placeCount < placesToLook; placeCount++)
@@ -236,12 +244,13 @@ namespace ProjectQ.Models
                     }
                 }
             }
-
+            Hub.ShowPlace("Exploring From...");
             // explore from each of the random locations
             var explorers = new List<HotPlaceExplorer>();            
             for (var i = 0; i < placesToLook; i++)
             {
                 explorers.Add(new HotPlaceExplorer(searchCentreCoords[i, 0], searchCentreCoords[i, 1]));
+                Hub.ShowPlace(explorers.Last().BasePlace.BaseTown);
             }
             SearchList = explorers.Select(e => e.BasePlace.BaseTown).ToList();
 
@@ -259,7 +268,7 @@ namespace ProjectQ.Models
             var hotPlaces = from e in explorers
                             where (e.HottestPlace.HotTemp == maxTemp)
                             select e.HottestPlace;
-
+            Hub.ShowPlace("Checking Distance");
             // check which is closest. (we only know how far they are from the random place at the moment)
             var shortestTime = long.MaxValue;
             foreach (var place in hotPlaces)
