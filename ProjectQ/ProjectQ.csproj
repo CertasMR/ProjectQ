@@ -224,9 +224,24 @@
     <Content Include="App_Data\Database_log.ldf">
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Sun\BloomPass.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Sun\cloud.png" />
+    <Content Include="Content\Sun\ConvolutionShader.js" />
+    <Content Include="Content\Sun\CopyShader.js" />
+    <Content Include="Content\Sun\EffectComposer.js" />
+    <Content Include="Content\Sun\FilmPass.js" />
+    <Content Include="Content\Sun\FilmShader.js" />
+    <Content Include="Content\Sun\lavatile.jpg" />
+    <Content Include="Content\Sun\MaskPass.js" />
+    <Content Include="Content\Sun\RenderPass.js" />
+    <Content Include="Content\Sun\ShaderPass.js" />
     <Content Include="Content\sun.jpg" />
+    <Content Include="Content\Sun\three.js" />
+    <Content Include="Content\Sun\three.min.js" />
+    <Content Include="Content\Sun\three.module.js" />
+    <Content Include="Content\Sun\WebGL.js" />
     <Content Include="favicon.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -1,7 +1,7 @@
 ﻿body { 
     /* add the background image and make it full page*/
     padding-bottom: 20px;
-    background: url("../Content/sun.jpg") no-repeat center center fixed;
+   /* background: url("../Content/sun.jpg") no-repeat center center fixed;*/
     background-size: cover;
 }
 

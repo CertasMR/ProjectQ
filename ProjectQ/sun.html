@@ -18,19 +18,19 @@
 
 		<div id="container"></div>
 		
-		<script src="./Content/Sun3d/three.js"></script>
+		<script src="./Content/Sun/three.js"></script>
 
-		<script src="./Content/Sun3d/ConvolutionShader.js"></script>
-		<script src="./Content/Sun3d/CopyShader.js"></script>
-		<script src="./Content/Sun3d/FilmShader.js"></script>
+		<script src="./Content/Sun/ConvolutionShader.js"></script>
+		<script src="./Content/Sun/CopyShader.js"></script>
+		<script src="./Content/Sun/FilmShader.js"></script>
 
-		<script src="./Content/Sun3d/EffectComposer.js"></script>
-		<script src="./Content/Sun3d/ShaderPass.js"></script>
-		<script src="./Content/Sun3d/MaskPass.js"></script>
-		<script src="./Content/Sun3d//RenderPass.js"></script>
-		<script src="./Content/Sun3d/BloomPass.js"></script>
-		<script src="./Content/Sun3d/FilmPass.js"></script>
-		<script src="./Content/Sun3d/WebGL.js"></script>
+		<script src="./Content/Sun/EffectComposer.js"></script>
+		<script src="./Content/Sun/ShaderPass.js"></script>
+		<script src="./Content/Sun/MaskPass.js"></script>
+		<script src="./Content/Sun//RenderPass.js"></script>
+		<script src="./Content/Sun/BloomPass.js"></script>
+		<script src="./Content/Sun/FilmPass.js"></script>
+		<script src="./Content/Sun/WebGL.js"></script>
 		<script id="fragmentShader" type="x-shader/x-fragment">
 
 			uniform float time;
@@ -112,7 +112,7 @@
 
 			function init() {
 
-				container = document.getElementById( 'container' );
+                container = document.getElementById( 'sunBackground' );
 
 				camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 3000 );
 				camera.position.z = 4;
@@ -129,8 +129,8 @@
 					fogColor: { value: new THREE.Vector3( 0, 0, 0 ) },
 					time: { value: 1.0 },
 					uvScale: { value: new THREE.Vector2( 3.0, 1.0 ) },
-					texture1: { value: textureLoader.load( './Content/Sun3d/cloud.png' ) },
-					texture2: { value: textureLoader.load( './Content/Sun3d/lavatile.jpg' ) }
+					texture1: { value: textureLoader.load( './Content/Sun/cloud.png' ) },
+					texture2: { value: textureLoader.load( './Content/Sun/lavatile.jpg' ) }
 
 				};
 
